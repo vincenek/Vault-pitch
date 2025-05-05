@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vault - Financial Automation Suite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #1a1f2b 0%, #0f172a 100%); }
+        .hero-height { min-height: 80vh; }
+        .feature-card:hover { transform: translateY(-10px); }
+    </style>
+</head>
+<body class="gradient-bg text-gray-100">
+    <!-- Navigation -->
+    <nav class="container mx-auto px-6 py-4">
+        <div class="flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="https://i.postimg.cc/y39PyW30/IMG-0608.jpg" class="h-12 w-12 rounded-lg" alt="Vault Logo">
+                <span class="ml-3 text-xl font-bold">Vault</span>
+            </div>
+            <a href="#contact" class="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-full">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="container mx-auto px-6 py-20 hero-height">
+        <div class="text-center">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6">The Last Financial Platform<br>Your Business Will Ever Need</h1>
+            <p class="text-xl text-gray-400 mb-12">AI-driven financial automation combining tax, payroll, and compliance in one secure vault</p>
+            <a href="https://vincenek.github.io/Vault-MVP/" target="_blank" class="bg-green-600 hover:bg-green-700 px-8 py-4 rounded-full text-lg">Live Prototype →</a>
+        </div>
+    </section>
+
+    <!-- Problem/Solution -->
+    <section class="bg-gray-800 py-20">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-16">
+                <div>
+                    <h2 class="text-3xl font-bold mb-6">The $84B Problem</h2>
+                    <p class="text-gray-400 mb-6">Small businesses waste 200+ hours/year juggling 4-7 financial tools while risking costly compliance errors.</p>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <div class="h-12 w-12 bg-blue-600 rounded-lg flex items-center justify-center mr-4">💸</div>
+                            <div>
+                                <h3 class="font-bold">Financial Tool Fatigue</h3>
+                                <p class="text-gray-400 text-sm">Average $3,200/year spent on disconnected financial software</p>
+                            </div>
+                        </div>
+                        <!-- Add more problem items -->
+                    </div>
+                </div>
+                <div>
+                    <h2 class="text-3xl font-bold mb-6">The Vault Solution</h2>
+                    <div class="space-y-6">
+                        <div class="feature-card p-6 bg-gray-900 rounded-xl transition-transform">
+                            <h3 class="text-xl font-bold mb-3">🛡️ Military-Grade Security</h3>
+                            <p class="text-gray-400">Zero-knowledge encryption meets automated compliance</p>
+                        </div>
+                        <div class="feature-card p-6 bg-gray-900 rounded-xl transition-transform">
+                            <h3 class="text-xl font-bold mb-3">🤖 AI Tax Optimizer</h3>
+                            <p class="text-gray-400">Proprietary algorithm finds average 23% tax savings</p>
+                        </div>
+                        <!-- Add more features -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Market Opportunity -->
+    <section class="container mx-auto px-6 py-20">
+        <h2 class="text-3xl font-bold mb-16 text-center">$26B Market Opportunity</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="p-6 bg-gray-800 rounded-xl">
+                <h3 class="text-xl font-bold mb-3">Core Market</h3>
+                <p class="text-blue-400 text-3xl font-bold">$8.4B</p>
+                <p class="text-gray-400 text-sm">US Small Business Accounting Software</p>
+            </div>
+            <div class="p-6 bg-gray-800 rounded-xl">
+                <h3 class="text-xl font-bold mb-3">Adjacent Markets</h3>
+                <p class="text-blue-400 text-3xl font-bold">$17.6B</p>
+                <p class="text-gray-400 text-sm">Payroll Services + Tax Preparation</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Traction -->
+    <section class="bg-gray-800 py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-16 text-center">Why We're Different</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center p-6">
+                    <div class="text-4xl mb-4">🚀</div>
+                    <h3 class="text-xl font-bold mb-2">10x Faster Setup</h3>
+                    <p class="text-gray-400">Onboard in 7 minutes vs industry average 2 hours</p>
+                </div>
+                <div class="text-center p-6">
+                    <div class="text-4xl mb-4">🔒</div>
+                    <h3 class="text-xl font-bold mb-2">Unbreakable Security</h3>
+                    <p class="text-gray-400">Bank-grade encryption + blockchain audit trails</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team -->
+    <section class="container mx-auto px-6 py-20" id="contact">
+        <div class="text-center">
+            <h2 class="text-3xl font-bold mb-6">Founder</h2>
+            <div class="max-w-md mx-auto bg-gray-800 rounded-xl p-8">
+                <img src="https://avatars.githubusercontent.com/u/12345678?v=4" class="w-32 h-32 rounded-full mx-auto mb-6" alt="Kenechukwu Vincent">
+                <h3 class="text-xl font-bold mb-2">Kenechukwu Vincent</h3>
+                <p class="text-gray-400 mb-4">Full-Stack Developer & Financial Systems Architect</p>
+                <div class="space-y-2">
+                    <a href="mailto:kenechukwu130@gmail.com" class="block text-blue-400 hover:text-blue-300">kenechukwu130@gmail.com</a>
+                    <a href="https://github.com/vincenek" target="_blank" class="block text-blue-400 hover:text-blue-300">GitHub: vincenek</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <footer class="bg-gray-900 py-12">
+        <div class="container mx-auto px-6 text-center">
+            <h3 class="text-2xl font-bold mb-6">Ready to Revolutionize Business Finance?</h3>
+            <p class="text-gray-400 mb-8">We're seeking $500k seed funding to launch our AI core</p>
+            <a href="mailto:kenechukwu130@gmail.com" class="bg-blue-600 hover:bg-blue-700 px-8 py-3 rounded-full">Schedule Investor Demo</a>
+        </div>
+    </footer>
+</body>
+</html>
