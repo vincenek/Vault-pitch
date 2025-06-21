@@ -4,129 +4,830 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vault - Financial Automation Suite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0f172a',
+                        secondary: '#1e293b',
+                        accent: '#0ea5e9',
+                        highlight: '#22d3ee',
+                        success: '#10b981'
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        .gradient-bg { background: linear-gradient(135deg, #1a1f2b 0%, #0f172a 100%); }
-        .hero-height { min-height: 80vh; }
-        .feature-card:hover { transform: translateY(-10px); }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f1f5f9;
+            scroll-behavior: smooth;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #22d3ee 0%, #0ea5e9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .feature-card {
+            transition: all 0.3s ease;
+            border: 1px solid rgba(30, 41, 59, 0.5);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.25);
+            border-color: rgba(14, 165, 233, 0.3);
+        }
+        
+        .security-badge {
+            background: rgba(14, 165, 233, 0.1);
+            border: 1px solid rgba(14, 165, 233, 0.3);
+        }
+        
+        .testimonial-card {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(30, 41, 59, 0.5);
+        }
+        
+        .animated-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: radial-gradient(circle at 10% 20%, rgba(34, 211, 238, 0.1) 0%, rgba(34, 211, 238, 0) 20%),
+                        radial-gradient(circle at 80% 80%, rgba(14, 165, 233, 0.1) 0%, rgba(14, 165, 233, 0) 20%);
+            z-index: -1;
+        }
+        
+        .pricing-card {
+            transition: all 0.3s ease;
+            border: 1px solid rgba(30, 41, 59, 0.5);
+        }
+        
+        .pricing-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.25);
+            border-color: rgba(14, 165, 233, 0.3);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(14, 165, 233, 0.1);
+            border-radius: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #0ea5e9;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
     </style>
 </head>
-<body class="gradient-bg text-gray-100">
+<body class="min-h-screen relative overflow-x-hidden">
+    <div class="animated-bg"></div>
+    
     <!-- Navigation -->
-    <nav class="container mx-auto px-6 py-4">
-        <div class="flex justify-between items-center">
-            <div class="flex items-center">
-                <img src="https://i.postimg.cc/y39PyW30/IMG-0608.jpg" class="h-12 w-12 rounded-lg" alt="Vault Logo">
-                <span class="ml-3 text-xl font-bold">Vault</span>
+    <nav class="container mx-auto px-4 lg:px-8 py-6 flex justify-between items-center">
+        <div class="flex items-center">
+            <div class="bg-gradient-to-br from-accent to-highlight p-1.5 rounded-xl">
+                <div class="bg-primary p-2 rounded-lg">
+                    <i class="fas fa-vault text-2xl text-accent"></i>
+                </div>
             </div>
-            <a href="#contact" class="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-full">Contact</a>
+            <span class="ml-3 text-2xl font-bold">Vault</span>
+        </div>
+        
+        <div class="hidden md:flex items-center space-x-8">
+            <a href="#features" class="nav-link">Features</a>
+            <a href="#solution" class="nav-link">Solution</a>
+            <a href="#pricing" class="nav-link">Pricing</a>
+            <a href="#testimonials" class="nav-link">Testimonials</a>
+            <a href="#contact" class="bg-accent hover:bg-blue-500 px-6 py-2 rounded-full transition">Contact</a>
+        </div>
+        
+        <div class="md:hidden">
+            <button id="mobile-menu-button" class="text-gray-300 hover:text-white">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
         </div>
     </nav>
-
+    
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden absolute top-20 left-0 right-0 bg-secondary z-50 shadow-lg py-4">
+        <div class="flex flex-col items-center space-y-4">
+            <a href="#features" class="w-full text-center py-2 hover:bg-primary">Features</a>
+            <a href="#solution" class="w-full text-center py-2 hover:bg-primary">Solution</a>
+            <a href="#pricing" class="w-full text-center py-2 hover:bg-primary">Pricing</a>
+            <a href="#testimonials" class="w-full text-center py-2 hover:bg-primary">Testimonials</a>
+            <a href="#contact" class="w-5/6 text-center bg-accent hover:bg-blue-500 py-2 rounded-full transition">Contact</a>
+        </div>
+    </div>
+    
     <!-- Hero Section -->
-    <section class="container mx-auto px-6 py-20 hero-height">
-        <div class="text-center">
-            <h1 class="text-5xl md:text-6xl font-bold mb-6">The Last Financial Platform<br>Your Business Will Ever Need</h1>
-            <p class="text-xl text-gray-400 mb-12">AI-driven financial automation combining tax, payroll, and compliance in one secure vault</p>
-            <a href="https://vincenek.github.io/Vault-MVP/" target="_blank" class="bg-green-600 hover:bg-green-700 px-8 py-4 rounded-full text-lg">Live Prototype →</a>
+    <section class="container mx-auto px-4 lg:px-8 py-16 md:py-28 flex flex-col items-center text-center">
+        <div class="max-w-4xl">
+            <div class="inline-block bg-accent/10 text-accent px-4 py-1 rounded-full mb-4">
+                <span>AI-Powered Financial Suite</span>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                The Last Financial Platform<br>Your Business Will <span class="gradient-text">Ever Need</span>
+            </h1>
+            <p class="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
+                AI-driven financial automation combining tax, payroll, and compliance in one secure vault. Save time, reduce costs, and eliminate financial headaches.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#" class="bg-accent hover:bg-blue-500 px-8 py-4 rounded-full text-lg font-semibold transition">Start Free Trial</a>
+                <a href="#features" class="bg-secondary hover:bg-gray-800 px-8 py-4 rounded-full text-lg font-semibold transition border border-gray-700">
+                    <i class="fas fa-play-circle mr-2"></i>View Demo
+                </a>
+            </div>
+        </div>
+        
+        <div class="mt-20 relative w-full max-w-5xl">
+            <div class="absolute inset-0 bg-gradient-to-r from-accent/20 to-highlight/20 blur-2xl rounded-full -z-10"></div>
+            <div class="bg-gradient-to-br from-primary to-secondary border border-gray-700 rounded-2xl overflow-hidden shadow-xl">
+                <div class="p-1 bg-gradient-to-r from-accent to-highlight">
+                    <div class="bg-primary p-8 flex justify-center">
+                        <div class="relative">
+                            <div class="absolute -top-6 -right-6 bg-success/10 text-success px-4 py-2 rounded-full font-semibold">
+                                Live Demo
+                            </div>
+                            <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Vault Dashboard" class="rounded-lg shadow-lg max-w-full h-auto">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
-
-    <!-- Problem/Solution -->
-    <section class="bg-gray-800 py-20">
-        <div class="container mx-auto px-6">
-            <div class="grid md:grid-cols-2 gap-16">
+    
+    <!-- Problem/Solution Section -->
+    <section id="solution" class="py-20 bg-gradient-to-b from-primary to-secondary">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-20">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Solving the $84B Financial Management Problem</h2>
+                <p class="text-xl text-gray-300">Small businesses waste 200+ hours/year juggling multiple financial tools while risking costly compliance errors.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Problems -->
                 <div>
-                    <h2 class="text-3xl font-bold mb-6">The $84B Problem</h2>
-                    <p class="text-gray-400 mb-6">Small businesses waste 200+ hours/year juggling 4-7 financial tools while risking costly compliance errors.</p>
-                    <div class="space-y-4">
-                        <div class="flex items-center">
-                            <div class="h-12 w-12 bg-blue-600 rounded-lg flex items-center justify-center mr-4">💸</div>
-                            <div>
-                                <h3 class="font-bold">Financial Tool Fatigue</h3>
-                                <p class="text-gray-400 text-sm">Average $3,200/year spent on disconnected financial software</p>
+                    <div class="bg-secondary rounded-2xl p-8 border border-gray-700">
+                        <h3 class="text-2xl font-bold mb-6 text-red-400">The Challenges</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="bg-red-500/10 p-3 rounded-lg mr-4">
+                                    <i class="fas fa-money-bill-wave text-red-400 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold mb-2">Financial Tool Fatigue</h4>
+                                    <p class="text-gray-400">Businesses use 4-7 different financial tools, spending $3,200/year on disconnected software.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-red-500/10 p-3 rounded-lg mr-4">
+                                    <i class="fas fa-clock text-red-400 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold mb-2">Time-Consuming Processes</h4>
+                                    <p class="text-gray-400">Manual data entry and reconciliation takes 15+ hours per week away from core business.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-red-500/10 p-3 rounded-lg mr-4">
+                                    <i class="fas fa-exclamation-triangle text-red-400 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold mb-2">Compliance Risks</h4>
+                                    <p class="text-gray-400">1 in 3 small businesses face penalties due to payroll or tax filing errors annually.</p>
+                                </div>
                             </div>
                         </div>
-                        <!-- Add more problem items -->
                     </div>
                 </div>
+                
+                <!-- Solutions -->
                 <div>
-                    <h2 class="text-3xl font-bold mb-6">The Vault Solution</h2>
-                    <div class="space-y-6">
-                        <div class="feature-card p-6 bg-gray-900 rounded-xl transition-transform">
-                            <h3 class="text-xl font-bold mb-3">🛡️ Military-Grade Security</h3>
-                            <p class="text-gray-400">Zero-knowledge encryption meets automated compliance</p>
+                    <div class="bg-secondary rounded-2xl p-8 border border-gray-700">
+                        <h3 class="text-2xl font-bold mb-6 text-accent">The Vault Solution</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="feature-card bg-gradient-to-br from-primary to-secondary rounded-xl p-6">
+                                <div class="flex items-start">
+                                    <div class="bg-accent/10 p-3 rounded-lg mr-4">
+                                        <i class="fas fa-shield-alt text-accent text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-semibold mb-2">Military-Grade Security</h4>
+                                        <p class="text-gray-400">Zero-knowledge encryption meets automated compliance with blockchain audit trails.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="feature-card bg-gradient-to-br from-primary to-secondary rounded-xl p-6">
+                                <div class="flex items-start">
+                                    <div class="bg-accent/10 p-3 rounded-lg mr-4">
+                                        <i class="fas fa-robot text-accent text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-semibold mb-2">AI Tax Optimizer</h4>
+                                        <p class="text-gray-400">Proprietary algorithm identifies an average of 23% tax savings opportunities.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="feature-card bg-gradient-to-br from-primary to-secondary rounded-xl p-6">
+                                <div class="flex items-start">
+                                    <div class="bg-accent/10 p-3 rounded-lg mr-4">
+                                        <i class="fas fa-bolt text-accent text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-semibold mb-2">Automated Workflows</h4>
+                                        <p class="text-gray-400">Reduce manual processes by 85% with intelligent automation across all financial operations.</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="feature-card p-6 bg-gray-900 rounded-xl transition-transform">
-                            <h3 class="text-xl font-bold mb-3">🤖 AI Tax Optimizer</h3>
-                            <p class="text-gray-400">Proprietary algorithm finds average 23% tax savings</p>
-                        </div>
-                        <!-- Add more features -->
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
+    
+    <!-- Features Section -->
+    <section id="features" class="py-20">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-20">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Powerful Features for Financial Control</h2>
+                <p class="text-xl text-gray-300">Everything you need to manage your business finances in one integrated platform</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="feature-card bg-gradient-to-br from-primary to-secondary rounded-2xl p-8 border border-gray-700">
+                    <div class="feature-icon mx-auto">
+                        <i class="fas fa-file-invoice-dollar text-accent text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-center">Automated Tax Management</h3>
+                    <p class="text-gray-400 text-center mb-6">Real-time tax calculations, filings, and optimization across all jurisdictions.</p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-success mr-2"></i>
+                            <span>Automated quarterly estimates</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-success mr-2"></i>
+                            <span>Deduction maximization</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-success mr-2"></i>
+                            <span>Multi-state compliance</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="feature-card bg-gradient-to-br from-primary to-secondary rounded-2xl p-8 border border-gray-700">
+                    <div class="feature-icon mx-auto">
+                        <i class="fas fa-money-check-alt text-accent text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-center">Smart Payroll Processing</h3>
+                    <p class="text-gray-400 text-center mb-6">Effortless payroll with automatic tax calculations and compliance.</p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-success mr-2"></i>
+                            <span>Unlimited payroll runs</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-success mr-2"></i>
+                            <span>Auto tax filings & payments</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-success mr-2"></i>
+                            <span>Contractor management</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="feature-card bg-gradient-to-br from-primary to-secondary rounded-2xl p-8 border border-gray-700">
+                    <div class="feature-icon mx-auto">
+                        <i class="fas fa-chart-line text-accent text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-center">Financial Insights & Reporting</h3>
+                    <p class="text-gray-400 text-center mb-6">AI-powered analytics and forecasting for smarter business decisions.</p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-success mr-2"></i>
+                            <span>Real-time cash flow analysis</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-success mr-2"></i>
+                            <span>Customizable financial reports</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-success mr-2"></i>
+                            <span>Predictive budgeting</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
     <!-- Market Opportunity -->
-    <section class="container mx-auto px-6 py-20">
-        <h2 class="text-3xl font-bold mb-16 text-center">$26B Market Opportunity</h2>
-        <div class="grid md:grid-cols-3 gap-8">
-            <div class="p-6 bg-gray-800 rounded-xl">
-                <h3 class="text-xl font-bold mb-3">Core Market</h3>
-                <p class="text-blue-400 text-3xl font-bold">$8.4B</p>
-                <p class="text-gray-400 text-sm">US Small Business Accounting Software</p>
+    <section class="py-20 bg-gradient-to-b from-secondary to-primary">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">$26B Market Opportunity</h2>
+                <p class="text-xl text-gray-300">Vault targets the rapidly growing financial automation market with a comprehensive solution</p>
             </div>
-            <div class="p-6 bg-gray-800 rounded-xl">
-                <h3 class="text-xl font-bold mb-3">Adjacent Markets</h3>
-                <p class="text-blue-400 text-3xl font-bold">$17.6B</p>
-                <p class="text-gray-400 text-sm">Payroll Services + Tax Preparation</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Traction -->
-    <section class="bg-gray-800 py-20">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold mb-16 text-center">Why We're Different</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="text-center p-6">
-                    <div class="text-4xl mb-4">🚀</div>
-                    <h3 class="text-xl font-bold mb-2">10x Faster Setup</h3>
-                    <p class="text-gray-400">Onboard in 7 minutes vs industry average 2 hours</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <div class="bg-gradient-to-br from-primary to-secondary rounded-2xl p-8 border border-gray-700">
+                    <h3 class="text-xl font-bold mb-3 text-center">Core Market</h3>
+                    <p class="text-accent text-4xl font-bold text-center mb-2">$8.4B</p>
+                    <p class="text-gray-400 text-center">US Small Business Accounting Software</p>
                 </div>
-                <div class="text-center p-6">
-                    <div class="text-4xl mb-4">🔒</div>
-                    <h3 class="text-xl font-bold mb-2">Unbreakable Security</h3>
-                    <p class="text-gray-400">Bank-grade encryption + blockchain audit trails</p>
+                
+                <div class="bg-gradient-to-br from-primary to-secondary rounded-2xl p-8 border border-gray-700">
+                    <h3 class="text-xl font-bold mb-3 text-center">Adjacent Markets</h3>
+                    <p class="text-accent text-4xl font-bold text-center mb-2">$17.6B</p>
+                    <p class="text-gray-400 text-center">Payroll Services + Tax Preparation</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-primary to-secondary rounded-2xl p-8 border border-gray-700">
+                    <h3 class="text-xl font-bold mb-3 text-center">Growth Potential</h3>
+                    <p class="text-accent text-4xl font-bold text-center mb-2">19% CAGR</p>
+                    <p class="text-gray-400 text-center">Projected market growth through 2028</p>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Team -->
-    <section class="container mx-auto px-6 py-20" id="contact">
-        <div class="text-center">
-            <h2 class="text-3xl font-bold mb-6">Founder</h2>
-            <div class="max-w-md mx-auto bg-gray-800 rounded-xl p-8">
-                <img src="https://avatars.githubusercontent.com/u/12345678?v=4" class="w-32 h-32 rounded-full mx-auto mb-6" alt="Kenechukwu Vincent">
-                <h3 class="text-xl font-bold mb-2">Kenechukwu Vincent</h3>
-                <p class="text-gray-400 mb-4">Full-Stack Developer & Financial Systems Architect</p>
-                <div class="space-y-2">
-                    <a href="mailto:kenechukwu130@gmail.com" class="block text-blue-400 hover:text-blue-300">kenechukwu130@gmail.com</a>
-                    <a href="https://github.com/vincenek" target="_blank" class="block text-blue-400 hover:text-blue-300">GitHub: vincenek</a>
+    
+    <!-- Security Section -->
+    <section class="py-20">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">Bank-Grade Security Infrastructure</h2>
+                    <p class="text-gray-300 mb-8">Your financial data is protected with military-grade encryption and security protocols that exceed industry standards.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="bg-accent/10 p-3 rounded-lg mr-4 mt-1">
+                                <i class="fas fa-lock text-accent text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold mb-2">Zero-Knowledge Encryption</h3>
+                                <p class="text-gray-400">Your data is encrypted before it leaves your device. Not even Vault can access it.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-accent/10 p-3 rounded-lg mr-4 mt-1">
+                                <i class="fas fa-fingerprint text-accent text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold mb-2">Biometric Access Controls</h3>
+                                <p class="text-gray-400">Multi-factor authentication and biometric verification for all sensitive operations.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-accent/10 p-3 rounded-lg mr-4 mt-1">
+                                <i class="fas fa-shield-alt text-accent text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold mb-2">Blockchain Audit Trails</h3>
+                                <p class="text-gray-400">Immutable transaction records provide unparalleled transparency and security.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 flex flex-wrap gap-3">
+                        <div class="security-badge px-4 py-2 rounded-full text-sm">SOC 2 Compliant</div>
+                        <div class="security-badge px-4 py-2 rounded-full text-sm">GDPR Ready</div>
+                        <div class="security-badge px-4 py-2 rounded-full text-sm">PCI DSS Certified</div>
+                    </div>
+                </div>
+                
+                <div class="flex justify-center">
+                    <div class="relative">
+                        <div class="absolute -top-6 -left-6 w-24 h-24 bg-highlight/20 rounded-full blur-xl"></div>
+                        <div class="absolute -bottom-6 -right-6 w-24 h-24 bg-accent/20 rounded-full blur-xl"></div>
+                        <div class="bg-gradient-to-br from-primary to-secondary border border-gray-700 rounded-2xl p-8 max-w-md">
+                            <div class="flex justify-between items-center mb-8">
+                                <div>
+                                    <div class="text-xl font-bold">Security Status</div>
+                                    <div class="text-success">All Systems Secure</div>
+                                </div>
+                                <div class="bg-success/10 p-3 rounded-full">
+                                    <i class="fas fa-shield-alt text-success text-xl"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span>Data Encryption</span>
+                                        <span>AES-256</span>
+                                    </div>
+                                    <div class="w-full bg-gray-700 rounded-full h-2">
+                                        <div class="bg-success h-2 rounded-full" style="width: 100%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span>Access Control</span>
+                                        <span>Biometric</span>
+                                    </div>
+                                    <div class="w-full bg-gray-700 rounded-full h-2">
+                                        <div class="bg-success h-2 rounded-full" style="width: 100%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span>Compliance</span>
+                                        <span>100%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-700 rounded-full h-2">
+                                        <div class="bg-success h-2 rounded-full" style="width: 100%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-8 pt-6 border-t border-gray-700 text-center">
+                                <div class="text-sm text-gray-400">Last Security Audit</div>
+                                <div class="font-semibold">Today, 10:24 AM</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-
+    
+    <!-- Testimonials -->
+    <section id="testimonials" class="py-20 bg-gradient-to-b from-primary to-secondary">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Trusted by Innovative Businesses</h2>
+                <p class="text-xl text-gray-300">Hear from companies that transformed their financial operations with Vault</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card rounded-2xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-accent to-highlight rounded-full flex items-center justify-center text-white font-bold mr-4">RS</div>
+                        <div>
+                            <div class="font-bold">Rebecca Simmons</div>
+                            <div class="text-gray-400 text-sm">Founder, TechStart Inc.</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-6">"Vault saved us over 20 hours per month on financial tasks and reduced our accounting costs by 40%. The AI tax optimizer found deductions we didn't even know existed!"</p>
+                    <div class="flex text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card rounded-2xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-accent to-highlight rounded-full flex items-center justify-center text-white font-bold mr-4">MJ</div>
+                        <div>
+                            <div class="font-bold">Michael Johnson</div>
+                            <div class="text-gray-400 text-sm">CEO, GrowthLab Agency</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-6">"As we scaled to 25 employees, payroll became a nightmare. Vault automated everything and ensured perfect compliance across 3 states. It paid for itself in the first month."</p>
+                    <div class="flex text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card rounded-2xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-accent to-highlight rounded-full flex items-center justify-center text-white font-bold mr-4">SP</div>
+                        <div>
+                            <div class="font-bold">Sarah Peterson</div>
+                            <div class="text-gray-400 text-sm">CFO, NexGen Retail</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-6">"The financial insights dashboard helped us identify $85k in unnecessary expenses. Vault is like having a full finance team at a fraction of the cost."</p>
+                    <div class="flex text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-16 flex justify-center">
+                <div class="flex space-x-3">
+                    <div class="w-3 h-3 bg-accent rounded-full"></div>
+                    <div class="w-3 h-3 bg-gray-700 rounded-full"></div>
+                    <div class="w-3 h-3 bg-gray-700 rounded-full"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Pricing -->
+    <section id="pricing" class="py-20">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Simple, Transparent Pricing</h2>
+                <p class="text-xl text-gray-300">All plans include our core financial automation features</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- Plan 1 -->
+                <div class="pricing-card bg-gradient-to-b from-primary to-secondary rounded-2xl p-8 border border-gray-700">
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-bold mb-2">Startup</h3>
+                        <p class="text-gray-400">For small businesses getting started</p>
+                    </div>
+                    <div class="text-center mb-8">
+                        <span class="text-4xl font-bold">$49</span>
+                        <span class="text-gray-400">/month</span>
+                    </div>
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-success mr-3"></i>
+                            <span>Up to 5 employees</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-success mr-3"></i>
+                            <span>Basic payroll processing</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-success mr-3"></i>
+                            <span>Tax filing for 1 state</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-success mr-3"></i>
+                            <span>Financial reporting</span>
+                        </li>
+                        <li class="flex items-center text-gray-500">
+                            <i class="fas fa-times-circle mr-3"></i>
+                            <span>AI Tax Optimizer</span>
+                        </li>
+                        <li class="flex items-center text-gray-500">
+                            <i class="fas fa-times-circle mr-3"></i>
+                            <span>Priority support</span>
+                        </li>
+                    </ul>
+                    <a href="#" class="block text-center bg-secondary hover:bg-gray-800 py-3 rounded-lg border border-gray-700">Get Started</a>
+                </div>
+                
+                <!-- Plan 2 -->
+                <div class="pricing-card bg-gradient-to-b from-primary to-secondary rounded-2xl p-8 border-2 border-accent relative">
+                    <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-accent text-white px-4 py-1 rounded-full">
+                        Most Popular
+                    </div>
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-bold mb-2">Growth</h3>
+                        <p class="text-gray-400">For scaling businesses</p>
+                    </div>
+                    <div class="text-center mb-8">
+                        <span class="text-4xl font-bold">$99</span>
+                        <span class="text-gray-400">/month</span>
+                    </div>
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-success mr-3"></i>
+                            <span>Up to 25 employees</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-success mr-3"></i>
+                            <span>Advanced payroll</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-success mr-3"></i>
+                            <span>Tax filing for 5 states</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-success mr-3"></i>
+                            <span>Financial reporting + analytics</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-success mr-3"></i>
+                            <span>AI Tax Optimizer</span>
+                        </li>
+                        <li class="flex items-center text-gray-500">
+                            <i class="fas fa-times-circle mr-3"></i>
+                            <span>Priority support</span>
+                        </li>
+                    </ul>
+                    <a href="#" class="block text-center bg-accent hover:bg-blue-500 py-3 rounded-lg font-semibold">Get Started</a>
+                </div>
+                
+                <!-- Plan 3 -->
+                <div class="pricing-card bg-gradient-to-b from-primary to-secondary rounded-2xl p-8 border border-gray-700">
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-bold mb-2">Enterprise</h3>
+                        <p class="text-gray-400">For established businesses</p>
+                    </div>
+                    <div class="text-center mb-8">
+                        <span class="text-4xl font-bold">$199</span>
+                        <span class="text-gray-400">/month</span>
+                    </div>
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-success mr-3"></i>
+                            <span>Unlimited employees</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-success mr-3"></i>
+                            <span>Global payroll</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-success mr-3"></i>
+                            <span>Tax filing in all states</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-success mr-3"></i>
+                            <span>Advanced analytics + forecasting</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-success mr-3"></i>
+                            <span>AI Tax Optimizer</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-success mr-3"></i>
+                            <span>Priority 24/7 support</span>
+                        </li>
+                    </ul>
+                    <a href="#" class="block text-center bg-secondary hover:bg-gray-800 py-3 rounded-lg border border-gray-700">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
     <!-- CTA -->
-    <footer class="bg-gray-900 py-12">
-        <div class="container mx-auto px-6 text-center">
-            <h3 class="text-2xl font-bold mb-6">Ready to Revolutionize Business Finance?</h3>
-            <p class="text-gray-400 mb-8">We're seeking $500k seed funding to launch our AI core</p>
-            <a href="mailto:kenechukwu130@gmail.com" class="bg-blue-600 hover:bg-blue-700 px-8 py-3 rounded-full">Schedule Investor Demo</a>
+    <section id="contact" class="py-20">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="bg-gradient-to-br from-accent to-highlight rounded-3xl p-1 max-w-4xl mx-auto">
+                <div class="bg-gradient-to-br from-primary to-secondary rounded-3xl p-12 text-center">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Transform Your Financial Operations?</h2>
+                    <p class="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">Join thousands of businesses that trust Vault with their financial automation. Start your free 14-day trial today.</p>
+                    
+                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+                        <a href="#" class="bg-accent hover:bg-blue-500 px-8 py-4 rounded-full text-lg font-semibold transition">Start Free Trial</a>
+                        <a href="#" class="bg-transparent border border-gray-600 hover:border-gray-400 px-8 py-4 rounded-full text-lg font-semibold transition">Schedule Demo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="py-12 border-t border-gray-800">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+                <div>
+                    <div class="flex items-center mb-6">
+                        <div class="bg-gradient-to-br from-accent to-highlight p-1.5 rounded-xl">
+                            <div class="bg-primary p-2 rounded-lg">
+                                <i class="fas fa-vault text-xl text-accent"></i>
+                            </div>
+                        </div>
+                        <span class="ml-3 text-xl font-bold">Vault</span>
+                    </div>
+                    <p class="text-gray-400 mb-6">AI-driven financial automation for modern businesses.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Product</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Features</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Pricing</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Security</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Integrations</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Roadmap</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Resources</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Documentation</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Guides</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Support</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">API</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Contact</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope text-gray-400 mt-1 mr-3"></i>
+                            <span class="text-gray-400">contact@vaultfinance.com</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-gray-400 mt-1 mr-3"></i>
+                            <span class="text-gray-400">San Francisco, CA</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone text-gray-400 mt-1 mr-3"></i>
+                            <span class="text-gray-400">+1 (555) 123-4567</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm">© 2023 Vault Financial Automation. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-500 hover:text-gray-400 text-sm">Privacy Policy</a>
+                    <a href="#" class="text-gray-500 hover:text-gray-400 text-sm">Terms of Service</a>
+                    <a href="#" class="text-gray-500 hover:text-gray-400 text-sm">Cookies</a>
+                </div>
+            </div>
         </div>
     </footer>
+    
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('mobile-menu');
+            const button = document.getElementById('mobile-menu-button');
+            
+            if (!menu.contains(event.target) && !button.contains(event.target)) {
+                menu.classList.add('hidden');
+            }
+        });
+    </script>
 </body>
 </html>
